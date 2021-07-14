@@ -12,6 +12,7 @@ db.once("open", function () {
 
 const uploadRoute = require("./routes/upload");
 const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/upload", uploadRoute);
 app.use("/auth", authRoute);
+app.use("/users", userRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
