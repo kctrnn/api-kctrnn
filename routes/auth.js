@@ -23,6 +23,8 @@ router.post("/register", async (req, res) => {
   const newUser = new User({
     email: req.body.email,
     password: hashPassword,
+
+    name: req.body.name,
   });
 
   try {
@@ -35,6 +37,7 @@ router.post("/register", async (req, res) => {
       user: {
         id: savedUser._id,
         email: savedUser.email,
+        name: savedUser.name,
       },
     });
   } catch (err) {
@@ -63,6 +66,7 @@ router.post("/login", async (req, res) => {
     user: {
       id: user._id,
       email: user.email,
+      name: user.name,
     },
   });
 });
