@@ -11,7 +11,13 @@ router.patch("/:userId", verifyToken, async (req, res) => {
     new: true,
   });
 
-  res.send(updatedUser);
+  res.send({
+    user: {
+      id: updatedUser._id,
+      email: updatedUser.email,
+      name: updatedUser.name,
+    },
+  });
 });
 
 module.exports = router;
