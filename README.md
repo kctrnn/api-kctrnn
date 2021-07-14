@@ -30,7 +30,8 @@ import axios from 'axios';
 axios
   .post('https://api-kctrnn.herokuapp.com/auth/register', {
     email: 'user@gmail.com',
-    password: 'userPassword',
+    password: 'userpassword',
+    name: 'kctrnn'
   })
   .then(response => {
     // Handle success
