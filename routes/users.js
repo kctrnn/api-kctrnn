@@ -16,6 +16,10 @@ router.patch("/:userId", verifyToken, async (req, res) => {
       id: updatedUser._id,
       email: updatedUser.email,
       name: updatedUser.name,
+
+      avatarUrl: updatedUser.avatarUrl || "",
+      phone: updatedUser.phone || "",
+      bio: updatedUser.bio || "",
     },
   });
 });

@@ -23,7 +23,6 @@ router.post("/register", async (req, res) => {
   const newUser = new User({
     email: req.body.email,
     password: hashPassword,
-
     name: req.body.name,
   });
 
@@ -38,6 +37,8 @@ router.post("/register", async (req, res) => {
         id: savedUser._id,
         email: savedUser.email,
         name: savedUser.name,
+
+        avatarUrl: "",
       },
     });
   } catch (err) {
@@ -67,6 +68,10 @@ router.post("/login", async (req, res) => {
       id: user._id,
       email: user.email,
       name: user.name,
+
+      avatarUrl: user.avatarUrl || "",
+      phone: user.phone || "",
+      bio: user.bio || "",
     },
   });
 });

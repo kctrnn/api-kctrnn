@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
 
   bio: String,
   phone: String,
+  avatarUrl: String,
 
   email: {
     type: String,
