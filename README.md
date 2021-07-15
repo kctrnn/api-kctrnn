@@ -3,7 +3,7 @@
 
 ## Endpoints
 
-### /upload
+`/upload`
 #### To upload a image
 
 ```sh
@@ -16,8 +16,9 @@ Example:
   formData.append('image', imageFile);
 ```
 
+---
 
-### /auth
+`/auth`
 #### Register
 ```sh
 POST /auth/register
@@ -25,20 +26,11 @@ POST /auth/register
 
 Usage:
 ```js
-import axios from 'axios';
-
-axios
-  .post('https://api-kctrnn.herokuapp.com/auth/register', {
+axios.post('https://api-kctrnn.herokuapp.com/auth/register', {
     email: 'user@gmail.com',
-    password: 'userpassword',
+    password: 'password',
     name: 'kctrnn'
-  })
-  .then(response => {
-    // Handle success
-  })
-  .catch(error => {
-    // Handle error
-  });
+})
 ```
 
 #### Login
@@ -48,17 +40,56 @@ POST /auth/login
 
 Usage:
 ```js
-import axios from 'axios';
-
-axios
-  .post('https://api-kctrnn.herokuapp.com/auth/register', {
+axios.post('https://api-kctrnn.herokuapp.com/auth/login', {
     email: 'user@gmail.com',
-    password: 'userPassword',
-  })
-  .then(response => {
-    // Handle success
-  })
-  .catch(error => {
-    // Handle error
-  });
+    password: 'password',
+})
+```
+---
+
+`/users` : Authenticated
+
+Usage:
+```js
+// /api/axiosClient.js
+
+axiosClient.interceptors.request.use(
+  function (config) {
+    const customHeaders = {};
+
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
+      customHeaders["auth-token"] = accessToken;
+    }
+
+    return {
+      ...config,
+      headers: {
+        ...customHeaders, // auto attach token
+        ...config.headers, // but you can override for some requests
+      },
+    };
+  },
+
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+```
+
+#### Update account
+```sh
+PATCH /auth/users/:userId
+```
+
+Example:
+```js
+axios.patch('https://api-kctrnn.herokuapp.com/users/29128318230', {
+    name: 'newName'
+})
+```
+
+#### Get user by id
+```sh
+GET /auth/users/:userId
 ```
