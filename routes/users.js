@@ -2,10 +2,19 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("./verifyToken");
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 // UPDATE ACCOUNT
 router.patch("/:userId", verifyToken, async (req, res) => {
   const { userId } = req.params;
+  const { password } = req.body;
+
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+    req.body.password = hashPassword;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
     new: true,
