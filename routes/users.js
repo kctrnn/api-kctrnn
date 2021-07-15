@@ -24,4 +24,22 @@ router.patch("/:userId", verifyToken, async (req, res) => {
   });
 });
 
+router.get("/:userId", verifyToken, async (req, res) => {
+  const { userId } = req.params;
+
+  const user = await User.findById(userId);
+
+  res.send({
+    user: {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+
+      avatarUrl: user.avatarUrl || "",
+      phone: user.phone || "",
+      bio: user.bio || "",
+    },
+  });
+});
+
 module.exports = router;
