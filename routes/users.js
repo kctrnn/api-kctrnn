@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const verifyToken = require("../middlewares/verifyToken");
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+const verifyToken = require('../middlewares/verifyToken');
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 // UPDATE ACCOUNT
-router.patch("/:userId", verifyToken, async (req, res) => {
+router.patch('/:userId', verifyToken, async (req, res) => {
   const { userId } = req.params;
   const { password } = req.body;
 
@@ -26,14 +26,14 @@ router.patch("/:userId", verifyToken, async (req, res) => {
       email: updatedUser.email,
       name: updatedUser.name,
 
-      avatarUrl: updatedUser.avatarUrl || "",
-      phone: updatedUser.phone || "",
-      bio: updatedUser.bio || "",
+      avatarUrl: updatedUser.avatarUrl || '',
+      phone: updatedUser.phone || '',
+      bio: updatedUser.bio || '',
     },
   });
 });
 
-router.get("/:userId", verifyToken, async (req, res) => {
+router.get('/:userId', verifyToken, async (req, res) => {
   const { userId } = req.params;
 
   const user = await User.findById(userId);
@@ -44,11 +44,13 @@ router.get("/:userId", verifyToken, async (req, res) => {
       email: user.email,
       name: user.name,
 
-      avatarUrl: user.avatarUrl || "",
-      phone: user.phone || "",
-      bio: user.bio || "",
+      avatarUrl: user.avatarUrl || '',
+      phone: user.phone || '',
+      bio: user.bio || '',
     },
   });
 });
+
+router.get('/test', (req, res) => res.send('test'));
 
 module.exports = router;
